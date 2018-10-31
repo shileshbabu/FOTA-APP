@@ -5,7 +5,7 @@
  *
  * 	brief: Firmware upgrade app used to be download & upgrade new firmware.
  *
- *	auther: Shilesh Babu
+ *	author: Shilesh Babu
  */
 /****************************************************************************************/
 

@@ -1,1 +1,46 @@
-start.pid
+start.pid 1
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides:          mosquitto
+# Required-Start:    $network
+# Required-Stop:     $network
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Mosquitto MQTT Broker
+# Description:       Starts the Mosquitto MQTT broker
+### END INIT INFO
+
+DAEMON=/usr/sbin/mosquitto
+DAEMON_OPTS="-c /etc/mosquitto/mosquitto.conf"
+PIDFILE=/var/run/mosquitto.pid
+
+start() {
+    echo "Starting Mosquitto MQTT Broker"
+    start-stop-daemon --start --background --make-pidfile --pidfile $PIDFILE --exec $DAEMON -- $DAEMON_OPTS
+}
+
+stop() {
+    echo "Stopping Mosquitto MQTT Broker"
+    start-stop-daemon --stop --pidfile $PIDFILE
+}
+
+case "$1" in
+  start)
+    start
+    ;;
+  stop)
+    stop
+    ;;
+  restart)
+    stop
+    sleep 1
+    start
+    ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+    exit 1
+esac
+
+exit 0
+
